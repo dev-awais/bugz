@@ -1,0 +1,43 @@
+<div id="page_wrapper">
+	<h1>New Bug</h1>
+
+		
+	<%= form_for [current_user,@project,@bug], html: { id: "new_bug_form" } do |f| %>
+
+		<div class="field">
+			<%= f.label :title %><br/>
+			<%= f.text_field :title %>
+		</div>
+
+		<div class="field">
+			<%= f.label :description %><br/>
+			<%= f.text_area :description%>
+		</div>
+
+		<div class="field">
+		      <%= f.label :bug_type %><br/> 
+		      <%= f.select(:bug_type, options_for_select([['Feature','feature'],['Bug','bug']])) %>
+		</div>
+		<div class="field">
+			<%= f.label :screeenshot %><br/>
+			<%= f.file_field :screenshot%>
+		</div>
+		<div class="field">
+			<%= hidden_field_tag :dropdown_items %>
+		</div>
+		<div class="field">
+		      <%= f.label :status %><br/> 
+		      <%= f.select(:status, ['New', 'Started','Completed']) %> 
+		</div>
+
+		
+		<br/>
+		<div class="actions">
+      		<%= f.submit%>
+    	</div>
+		
+
+	<% end %>
+
+
+</div>

@@ -1,36 +1,48 @@
-<div id="page_wrapper">
-  <h2>Sign up</h2>
+<div id="page_wrapper" >
+  <div class="head">
+    <h2 class="title">User SignUp</h2>
+  </div>
 
+  <div class="form">
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
 
-    <div>
-     <%= f.label :name %><br />
-     <%= f.text_field :name, autofocus: true %>
+    <div class="field form-row m-b m-t">
+       <!--<div class="name col-md-2"><%= f.label :name %><br /></div>-->
+      <span class="input-container "><i class="icon far fa-user fa-2x"></i><%= f.text_field :name, autofocus: true,id: "inputfield",placeholder: " Name" %></span>
     </div>
+
     
-    <div class="field">
-      <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    
+    <div class="field form-row m-b">
+      <!--<div class="name col-md-2"><%= f.label :email %></div><br />-->
+      <div class="input-container "><i class="icon far fa-envelope fa-2x"></i><%= f.email_field :email, autofocus: true, autocomplete: "email",id: "inputfield",placeholder: "Email" %></div>
     </div>
 
-    <div class="field">
-      <%= f.label :password %>
-      <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em>
-      <% end %><br />
-      <%= f.password_field :password, autocomplete: "new-password" %>
+    <div class="field form-row m-b">
+      <!--<div class="name col-md-2"><%= f.label :password %></div>-->
+      <div class="input-container">
+     <i class="icon fab fa-expeditedssl fa-2x"></i><%= f.password_field :password, autocomplete: "new-password",id: "inputfield",placeholder: "Password" %></div>
+    <% if @minimum_password_length %>
+      <em class="emp1">(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %>
     </div>
 
-    <div class="field">
-      <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <div class="field form-row m-b">
+      <!--<div class="name col-md-2"><%= f.label :password_confirmation %><br /></div> -->
+      <div class="input-container "><i class="icon fab fa-expeditedssl fa-2x"></i><%= f.password_field :password_confirmation, autocomplete: "new-password",id: "inputfield",placeholder: "Confirm Password" %></div>
+    </div>
+
+    <div class="field form-row m-b">
+      <!--<div class="name col-md-2"><%= f.label :user_type %><br/></div> --> 
+      <div class="value " ><%= f.select(:user_type, options_for_select([['Manager','manager'],['QA','qa'],['Developer','developer']]),id: "drop-down") %></div>
     </div>
 
     <div class="actions">
-      <%= f.submit "Sign up" %>
+      <%= f.submit "Sign up",class:"btn-reg" %>
     </div>
   <% end %>
 
   <%= render "devise/shared/links" %>
+</div>
 </div>

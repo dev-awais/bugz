@@ -1,2 +1,8 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+<% @project.each do |p| %>
+	<div class="post_wrapper">
+		<h2 class="id">Project Name: <%=link_to p.name,user_project_path(current_user,p)%> </h2>
+		<p class="date">Created on: <%=p.created_at.strftime("%B, %d, %Y")%> </p>
+		<br/>
+		<br/>
+	</div>
+<%end%>

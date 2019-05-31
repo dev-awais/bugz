@@ -1,2 +1,8 @@
-<h1>Bugs#index</h1>
-<p>Find me in app/views/bugs/index.html.erb</p>
+<% @bugs.each  do |b| %>
+	<div class="post_wrapper">
+		<div class="title font-weight-bolder"><%=link_to b.title, user_project_bug_path(current_user,@project,b) %> </div>
+		<div class="date"> <p>Created On:<%=b.created_at.strftime("%B, %d, %Y")%> </p></div>
+		<br/>
+		<br/>
+	</div>
+<%end%>

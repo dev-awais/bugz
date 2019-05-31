@@ -1,2 +1,52 @@
-<h1>Projects#show</h1>
-<p>Find me in app/views/projects/show.html.erb</p>
+<div id="post_content">
+	
+		
+	<p class="name">
+		<h2> Project Name: </h2>  <%= @project.name %>
+	</p>
+	
+	<p class="date">
+		<h3> Date Created:</h3><p>	started <%= time_ago_in_words(@project.created_at)%> Ago</p>
+	</p>
+		<br/>
+		
+	<p><%= @type %> </p>
+		
+	<div class="field">
+		<h2>Developers</h2> 
+		<br/>
+		<ul>
+			<% @developers.each do |d| @heading_flag=0%>
+				<% if(@selected_developers_qa.include?(d.id)) %>
+						<li> <%= d.name %>  </li>
+				<% end %>
+			<%end%>
+		</ul>
+		
+		<h2>QA </h2>
+		
+		<ul>
+			<% @qa.each do |q| %>
+				<% if(@selected_developers_qa.include?(q.id)) %>
+						<li> <%= q.name %>  </li>
+				<% end %>
+			<% end %>
+		</ul>
+	</div>
+
+
+	<br/>
+	<br/>
+	<br/>
+		
+	<button class="button"><%= link_to "Edit Project",edit_user_project_path(current_user, @project) %> <!-- current_user.id -->
+    </button>
+    <button class="button"><%= link_to "Delete Project",user_project_path(current_user,@project), method: :delete, data:{confirm: 'Are you sure?'} %> <!-- current_user.id -->
+    </button>
+    <% if current_user.qa?%>
+	    <button class="button"><%= link_to "Add Bug",new_user_project_bug_path(current_user,@project), @bug %> <!-- current_user.id -->
+	    </button>
+	<% end %>
+    <button class="button"><%= link_to "See all Bugs of this Project",user_project_bugs_path(current_user,@project) %> <!-- current_user.id -->
+    </button>            
+</div>

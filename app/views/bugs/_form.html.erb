@@ -1,0 +1,48 @@
+
+<%= form_for [current_user,@bug], html: { id: "new_bug_form" } do |f| %>
+
+<p>
+	<p><%= f.label :title %></p>
+	<p><%= f.text_field :title %></p>
+</p>
+
+<% if !current_page?(new_user_project_path) %>
+			<div class="field">
+				<h2><%= f.label :Add_or_Remove_developers %></h2> 
+					<br/>
+				 <%= f.radio_button :user_ids, 'ali', :checked => true %> 
+			 <%= label :user_ids, 'Ali' %><br/>
+			 <%= f.radio_button :user_ids, 'ahmad' %>
+			 <%= label :user_ids_sms, 'Ahmad' %>
+				</div>
+ <% else %>
+					<div class="field">
+						<h2><%= f.label :Add_Developers %></h2> 
+						<ul>
+							<%= hidden_field_tag :selected_users %>
+							<% @developers.each do |d| @heading_flag=0%>
+								<li> <%= d.name %>   <i id="bugzilla_user_<%= d.id.to_s %>" class="fas fa-plus-circle">  </i> </li>
+							<%end%>
+							<%if @heading_flag==0%>
+							<h2><%= f.label :Add_QA %></h2>
+							<% @heading_flag=1%>
+							<%end%>
+							<% @qa.each do |q| %>
+								<li> <%= q.name %>   <i id="bugzilla_user_<%= q.id.to_s %>" class="fas fa-plus-circle">  </i> </li>
+							<%end%>
+						</ul>
+						 
+						
+					</div>
+						
+						
+ <% end %>
+
+<p>
+	<%= f.submit%>
+</p>
+
+	
+
+<% end %>
+

@@ -1,2 +1,13 @@
-<h1>Bugs#edit</h1>
-<p>Find me in app/views/bugs/edit.html.erb</p>
+<div id="page_wrapper">
+	<h1>Update Bug Status</h1>
+	<%= form_for [current_user,@project,@bug], html: { id: "edit_bug_form" } do |f| %>
+		<div class="field">
+		      <%= f.label :Mark_Resolved %> <br/>
+		      <%= f.select(:status, options_for_select([['Resolved','resolved']]))  %> <br/><br/>
+		</div>
+
+		<div class="action">
+			<%= f.submit%>
+		</div>
+	<% end %>
+</div>

@@ -4,7 +4,8 @@
     <title>Bugzilla</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head> 
@@ -19,12 +20,12 @@
         <div id="logo">
           <%= link_to root_path do %>
             <%= image_tag "logo.png" %>
-            <%end%>
+          <%end%>
         </div>
         <ul>
             <li class="category">Website</li>
-            <li><%= link_to "Projects", user_projects_path(1) %></li>
-            <li><%= link_to "Bugs", root_path %> </li>
+            <li><%= link_to "Projects", user_projects_path(current_user) %></li>
+            <li><%= link_to "Bugs", user_project_bugs_path(current_user,Project.all.ids) %> </li>
             <li><%= link_to "About", about_path %></li>
         </ul>
         <ul>
@@ -32,35 +33,61 @@
           <li><a href="https://twitter.com/login">Twitter</a></li>
           <li><a href="https://www.instagram.com/">Instagram</a></li>
           <li><a href="https://www.github.com">Github</a></li>
-      </ul>
+        </ul>
 
       <% if !user_signed_in? %>
         <p class="sign_in">Admin Login</p>
       <% end %>
-      </div>
+        </div>
       
       <div id="main_content">
         <div id="header">
-          <% if current_page?(root_path) %>
-          <p>All Posts</p>
-          <% elsif current_page?(about_path) %>
-          <p> About </p> 
-          <% else %>
-            <%= link_to "Back to all Posts",root_path %>
-            <% end %>
+          <%# if current_page?(root_path) %>
+          <!-- <p>All Projects</p> -->
+          <%# elsif current_page?(about_path) %>
+          <!-- <p> About </p> -->
+          <%# elsif current_page?(user_project_bugs_path)%>
+            <%#= link_to "Back to all Projects",root_path %>
+          <%# else %>
+            <%#= link_to "Back to all Bugs", user_project_bugs_path(current_user, @project) %>
+          <%= link_to "Back", request.referrer %>
+            
+            <%# end %>
             <% if user_signed_in? %>
-              <div class="buttons">
-                <button class="button"><%= link_to "New Post",new_user_session_path %>
-                </button>
-                <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
-              </div>
+              
+                <% if  current_page?(new_user_project_path(current_user))%>
+                  <div class="buttons">
+                  <% if current_user.manager?%>  
+                    <button class="button"><%= link_to "New Project",new_user_project_path(current_user) %> <!-- current_user.id -->
+                    </button>
+                  <%end%>  
+                  <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                  </div>
+                <%elsif current_page?(user_project_bugs_path(current_user,@project))%>
+                  <div class="buttons">
+                  <button class="button"><%= link_to "New Bug",new_user_project_bug_path(current_user,@project) %> <!-- current_user.id -->
+                  </button>
+                  <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                  </div>
+                  <%else%>
+                  <div class="buttons">
+                  <% if current_user.manager?%>  
+                    <button class="button"><%= link_to "New Project",new_user_project_path(current_user) %> <!-- current_user.id -->
+                    </button>
+                  <%end%>  
+                  <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                  </div>
+                <% end %>
+              
               <% end %>
             </div>
         <% flash.each do |name,msg| %>
           <%= content_tag(:div, msg, class:"alert") %>
           <% end %>
-        <%= yield %>
-
+        <div class="container">
+         <%= yield %>
+       </div>
+        
       </div>
     <% end %>
   </body>

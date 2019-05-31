@@ -1,0 +1,42 @@
+<%= form_for [current_user,@project], html: { id: "new_project_form" } do |f| %>
+	
+	<div id="page_wrapper">
+		<h1>New Project</h1>
+		<p>
+			<p><%= f.label :name %></p>
+			<p><%= f.text_field :name %></p>
+		</p>	
+		<div class="field">
+			<h2><%= f.label :Add_Developers %></h2> 
+				
+				<ul>
+					<%= hidden_field_tag :selected_users %>
+					
+					<% @developers.each do |d| @heading_flag=0%>
+						<li> <%= d.name %>   <i id="bugzilla_user_<%= d.id.to_s %>" class="fas fa-plus-circle">  </i> </li>
+					<%end%>
+					
+					<%if @heading_flag==0%>
+						<h2><%= f.label :Add_QA %></h2>
+						<% @heading_flag=1%>
+					<%end%>
+					
+					<% @qa.each do |q| %>
+						<li> <%= q.name %>   <i id="bugzilla_user_<%= q.id.to_s %>" class="fas fa-plus-circle">  </i> </li>
+					<%end%>
+				
+				</ul>
+							 
+							
+		</div>
+		
+	<p>
+	<%= f.submit%>
+	</p>
+	</div>
+
+	
+
+	
+
+<% end %>
