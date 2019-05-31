@@ -25,7 +25,11 @@
         <ul>
             <li class="category">Website</li>
             <li><%= link_to "Projects", user_projects_path(current_user) %></li>
-            <li><%= link_to "Bugs", user_project_bugs_path(current_user,Project.all.ids) %> </li>
+            <%if Project.first.nil? %>
+              <li><%= link_to "Bugs", root_path %> </li>
+            <%else%>
+              <li><%= link_to "Bugs", user_project_bugs_path(current_user,Project.all.ids) %> </li>
+            <%end%>
             <li><%= link_to "About", about_path %></li>
         </ul>
         <ul>
