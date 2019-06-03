@@ -85,6 +85,14 @@
                   
                   </div>
                 <% end %>
+              <%else%>
+                  <div class="buttons">
+                  <% if current_user.manager?%>  
+                    <button class="button"><%= link_to "New Project",new_user_project_path(current_user) %> <!-- current_user.id -->
+                    </button>
+                    <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                  <%end%>  
+                
               <%end%>
 
               <% end %>
