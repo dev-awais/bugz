@@ -58,7 +58,7 @@
             
             <%# end %>
             <% if user_signed_in? %>
-              
+              <%if !@project.blank? %>
                 <% if  current_page?(new_user_project_path(current_user))%>
                   <div class="buttons">
                   <% if current_user.manager?%>  
@@ -67,22 +67,26 @@
                   <%end%>  
                   <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
                   </div>
-                <%elsif current_page?(user_project_bugs_path(current_user,@project))%>
-                  <div class="buttons">
-                  <button class="button"><%= link_to "New Bug",new_user_project_bug_path(current_user,@project) %> <!-- current_user.id -->
-                  </button>
-                  <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
-                  </div>
+                  
+               <%elsif current_page?(user_project_bugs_path(current_user,@project))%>
+                    <div class="buttons">
+                    <button class="button"><%= link_to "New Bug",new_user_project_bug_path(current_user,@project) %> <!-- current_user.id -->
+                    </button>
+                    <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                    </div>
+                  
                   <%else%>
                   <div class="buttons">
                   <% if current_user.manager?%>  
                     <button class="button"><%= link_to "New Project",new_user_project_path(current_user) %> <!-- current_user.id -->
                     </button>
+                    <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
                   <%end%>  
-                  <button class="button"><%= link_to "Log Out" ,destroy_user_session_path,method: :delete%></button>
+                  
                   </div>
                 <% end %>
-              
+              <%end%>
+
               <% end %>
             </div>
         <% flash.each do |name,msg| %>

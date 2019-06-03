@@ -1,3 +1,4 @@
+<%if !@project.blank?%>
 <% @project.each do |p| %>
 	<div class="post_wrapper">
 		<h2 class="id">Project Name: <%=link_to p.name,user_project_path(current_user,p)%> </h2>
@@ -5,4 +6,5 @@
 		<br/>
 		<br/>
 	</div>
+<%end%>
 <%end%>
